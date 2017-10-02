@@ -1,8 +1,8 @@
-/Binaries
-/Build
-/.vc
-/Intermediate
-/ipch
-/Saved
-/Content/StarterContent
+Binaries/
+Build/
+.vc/
+Intermediate/
+ipch/
+Saved/
+Content/StarterContent/
 *VC.db
