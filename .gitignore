@@ -8,4 +8,4 @@ Content/StarterContent/
 
 *.VC.db
 *.sln
-**_BuiltData.uasset
+*_BuiltData.uasset
