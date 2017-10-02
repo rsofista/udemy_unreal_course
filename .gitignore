@@ -5,5 +5,7 @@ Intermediate/
 ipch/
 Saved/
 Content/StarterContent/
-*VC.db
-*sln
+
+*.VC.db
+*.sln
+*_BuiltData.uasset
