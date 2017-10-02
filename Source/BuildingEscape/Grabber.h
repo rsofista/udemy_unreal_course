@@ -42,8 +42,8 @@ private:
 	void ReleaseGrab();
 	// Returns the info of the element in reach
 	FHitResult GetFirstPhysicalBodyInReach() const;
-
+	// Populates the 2 parameters with the information from where the player is facing
 	void GetPlayerViewPointInfo(FVector &out_PlayerViewPointLocation, FRotator &out_PlayerViewPointRotator) const;
-
+	// Return the vector where the grab line ends
 	FVector GetLineTraceEnd() const;
 };

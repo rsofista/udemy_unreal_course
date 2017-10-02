@@ -14,18 +14,14 @@ UOpenDoor::UOpenDoor()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	this->PrimaryComponentTick.bCanEverTick = true;
 }
 
 
 // Called when the game starts
 void UOpenDoor::BeginPlay()
 {
-	Super::BeginPlay();
-	
-	this->Owner = this->GetOwner();
+	this->Super::BeginPlay();
 }
 
 
@@ -49,27 +45,29 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 void UOpenDoor::OpenDoor()
 {
-	this->Owner->SetActorRotation(FRotator(0.0f, this->OpenAngle, 0.0f));
+	this->GetOwner()->SetActorRotation(FRotator(0.0f, this->OpenAngle, 0.0f));
 }
 
 void UOpenDoor::CloseDoor()
 {
-	this->Owner->SetActorRotation(FRotator(0.0f, -90.0f, 0.0f));
+	this->GetOwner()->SetActorRotation(FRotator(0.0f, -90.0f, 0.0f));
 }
 
 float UOpenDoor::GetTotalMassOfActorsInThePressurePlate() const
 {
 	float TotalMass = 0.0f;
 
-	TArray<AActor*> OverlappingActors;
+	if (this->PressurePlate) {
+		TArray<AActor*> OverlappingActors;
 
-	this->PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+		this->PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 
-	for (const AActor *Actor : OverlappingActors) {
-		UPrimitiveComponent* ActorPrimitiveComponent = Actor->FindComponentByClass<UPrimitiveComponent>();
+		for (const AActor *Actor : OverlappingActors) {
+			UPrimitiveComponent* ActorPrimitiveComponent = Actor->FindComponentByClass<UPrimitiveComponent>();
 
-		if (ActorPrimitiveComponent) {
-			TotalMass += ActorPrimitiveComponent->GetMass();
+			if (ActorPrimitiveComponent) {
+				TotalMass += ActorPrimitiveComponent->GetMass();
+			}
 		}
 	}
 

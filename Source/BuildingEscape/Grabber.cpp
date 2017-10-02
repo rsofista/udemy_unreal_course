@@ -48,6 +48,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	this->Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!this->PhysicsHandle) { return; }
+
 	if (this->PhysicsHandle->GrabbedComponent) {
 		this->PhysicsHandle->SetTargetLocation(this->GetLineTraceEnd());
 	}
@@ -55,6 +57,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 void UGrabber::Grab()
 {
+	if (!this->PhysicsHandle) { return; }
+
 	FHitResult HitResult = this->GetFirstPhysicalBodyInReach();
 
 	if (HitResult.GetActor()) {
@@ -73,6 +77,8 @@ void UGrabber::Grab()
 
 void UGrabber::ReleaseGrab()
 {
+	if (!this->PhysicsHandle) { return; }
+
 	this->PhysicsHandle->ReleaseComponent();
 }
 
