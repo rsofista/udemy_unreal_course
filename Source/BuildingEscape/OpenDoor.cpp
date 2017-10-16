@@ -8,7 +8,6 @@
 
 #define OUT
 
-
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
 {
@@ -17,13 +16,11 @@ UOpenDoor::UOpenDoor()
 	this->PrimaryComponentTick.bCanEverTick = true;
 }
 
-
 // Called when the game starts
 void UOpenDoor::BeginPlay()
 {
 	this->Super::BeginPlay();
 }
-
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -33,25 +30,11 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	const float WorldTimeSeconds = this->GetWorld()->GetTimeSeconds();
 
 	if (this->GetTotalMassOfActorsInThePressurePlate() > this->MinimumMassToOpenDoor) {
-		this->OpenDoor();
-		
-		this->LastDoorOpenTime = WorldTimeSeconds;
+		this->OnOpen.Broadcast();
 	}
-	else
-	if (this->LastDoorOpenTime + this->DoorCloseDelay < WorldTimeSeconds) {
-		this->CloseDoor();
+	else {
+		this->OnClose.Broadcast();
 	}
-}
-
-void UOpenDoor::OpenDoor()
-{
-	//this->GetOwner()->SetActorRotation(FRotator(0.0f, this->OpenAngle, 0.0f));
-	this->OnOpenRequest.Broadcast();
-}
-
-void UOpenDoor::CloseDoor()
-{
-	this->GetOwner()->SetActorRotation(FRotator(0.0f, -90.0f, 0.0f));
 }
 
 float UOpenDoor::GetTotalMassOfActorsInThePressurePlate() const

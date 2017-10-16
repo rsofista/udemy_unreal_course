@@ -9,4 +9,6 @@ Content/StarterContent/
 *.VC.db
 *.sln
 *_BuiltData.uasset
-*VC.opendb
+*.VC.opendb
+*.VC.db-shm
+*.VC.db-wal
